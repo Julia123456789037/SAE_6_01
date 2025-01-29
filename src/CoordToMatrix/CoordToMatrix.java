@@ -82,57 +82,7 @@ public class CoordToMatrix
 
 
 			// Génération du commentaire au dessus 
-			pw.println("/*********************************************\r\n"  +
-			           " * OPL 22.1.1.0 Data\r\n"                            + 
-			           " * Author: Ottirate\r\n"                             + 
-			           " * Creation Date: "+ CoordToMatrix.getDate() +"\r\n" + 
-			           " *********************************************/\r\n");
-
-
-			// Génération du nombre de sommets : dépôt + clients
-			pw.println("// Nombre de sommets : dépôt + clients");
-			pw.println("nbClientDep = " + (nbClient + 1) + ";\n");
-
-
-			// Génération du nombre de véhicule
-			pw.println("// Nombre de véhicules");
-			pw.println("nbVehicules = " + CoordToMatrix.DEFAULT_NB_VEHICULE + ";\n");
-
-			
-			// Génération des capacité maximale des véhicules
-			pw.println("// Capacité maximale des véhiculess");
-			pw.println("Qmax = " + this.capacite + ";\n");
-			
-			
-			// Demandes des clients (le premier élément correspond au dépôt)
-			pw.println("// Demandes des clients (le premier élément correspond au dépôt)");
-			String demande = "[";
-			for (Point p : this.points) {
-				demande += ", " + p.demande;
-			}
-			demande = demande.replaceFirst(", ", "");
-			pw.println("Demande = " + demande + "];\n");
-
-			
-			
-			// Matrice des distances
-			pw.println("// Matrice des distances");
-			String distance = "[\n";
-			for (int i = 0; i < matrix.length; i++) 
-			{
-				distance += "\t[";
-				for (int j = 0; j < matrix[i].length; j++) 
-				{
-					distance += String.format("%3d", matrix[i][j]);
-					if (j != matrix[i].length - 1) distance += ", ";
-				}
-				distance += "]";
-
-				if (i != matrix.length - 1) distance += ",\n";
-			}
-			pw.println("Distance = " + distance + "\n];");
-
-
+			pw.println(this.getText());
 
 
 			pw.close();
@@ -143,6 +93,54 @@ public class CoordToMatrix
 		}
 
 	}
+
+
+
+
+
+	public String getText()
+	{
+		String text ="/*********************************************\r\n"                 +
+					 " * OPL 22.1.1.0 Data\r\n"                                           + 
+					 " * Author: Ottirate\r\n"                                            + 
+					 " * Creation Date: "+ CoordToMatrix.getDate() +"\r\n"                + 
+					 " *********************************************/\r\n"                +
+		             "// Nombre de sommets : dépôt + clients\n"                           +
+		             "nbClientDep = " + (nbClient + 1) + ";\n\n"                          +
+                     "// Nombre de véhicules\n"                                           +
+		             "nbVehicules = " + CoordToMatrix.DEFAULT_NB_VEHICULE + ";\n\n"       +
+		             "// Capacité maximale des véhiculess\n"                              +
+		             "Qmax = " + this.capacite + ";\n\n"                                  +
+		             "// Demandes des clients (le premier élément correspond au dépôt)\n" ;
+
+
+		String demande = "[";
+		for (Point p : this.points) {
+			demande += ", " + p.demande;
+		}
+		demande = demande.replaceFirst(", ", "");
+		
+		text += "Demande = " + demande + "];\n\n" +
+		        "// Matrice des distances\n"      ;
+
+		String distance = "[\n";
+		for (int i = 0; i < matrix.length; i++) 
+		{
+			distance += "\t[";
+			for (int j = 0; j < matrix[i].length; j++) 
+			{
+				distance += String.format("%3d", matrix[i][j]);
+				if (j != matrix[i].length - 1) distance += ", ";
+			}
+			distance += "]";
+
+			if (i != matrix.length - 1) distance += ",\n";
+		}
+		text += "Distance = " + distance + "\n];";
+
+		return text;
+	}
+
 
 	private static String getDate ()
 	{
