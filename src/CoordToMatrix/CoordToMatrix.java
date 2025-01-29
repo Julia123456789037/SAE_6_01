@@ -13,20 +13,19 @@ public class CoordToMatrix
 {
 	public static final int DEFAULT_NB_VEHICULE = 4;
 
-    private int[][] matrix;
-    private Point[] points;
-    private int     nbClient;
+    private float[][] matrix;
+    private Point[]   points;
+    private int       nbClient;
 
     private int   capacite;
 
     private float resultatOpti;
 
-    public void chargerFichier(String nameFile) 
+    public boolean chargerFichier(File file) 
 	{
         try
 		{
             // Lire le fichier
-            File file = new File(nameFile);
             Scanner input = new Scanner(file);
             input.useLocale(Locale.US); 
 
@@ -48,14 +47,14 @@ public class CoordToMatrix
 			{
                 int num = input.nextInt();
                 int demande = input.nextInt();
-                int x = input.nextInt();
-                int y = input.nextInt();
+                float x = input.nextFloat();
+                float y = input.nextFloat();
 
                 points[i] = new Point(num, demande, x, y);
             }
 
             // Créer la matrice de distances
-            this.matrix = new int[nbClient + 1][nbClient + 1];
+            this.matrix = new float[nbClient + 1][nbClient + 1];
             for (int i = 0; i <= nbClient; i++) 
 			{
                 for (int j = 0; j <= nbClient; j++) 
@@ -68,8 +67,10 @@ public class CoordToMatrix
 			
             input.close();
         } catch (Exception e) {
-            e.printStackTrace();
+			return false;
         }
+
+		return true;
     }
 
 
@@ -129,7 +130,7 @@ public class CoordToMatrix
 			distance += "\t[";
 			for (int j = 0; j < matrix[i].length; j++) 
 			{
-				distance += String.format("%3d", matrix[i][j]);
+				distance += String.format("%.2f", matrix[i][j]);
 				if (j != matrix[i].length - 1) distance += ", ";
 			}
 			distance += "]";
@@ -151,8 +152,9 @@ public class CoordToMatrix
         return formatter.format(now);
 	}  
 
-    private record Point(int num, int demande, int x, int y) {
-        public int getDistance(Point c) {
+    private record Point(int num, int demande, float x, float y) {
+
+        public float getDistance(Point c) {
             return Math.abs(this.x - c.x) + Math.abs(this.y - c.y);
         }
 
@@ -167,7 +169,7 @@ public class CoordToMatrix
 
     public static void main(String[] args) {
         CoordToMatrix ctm = new CoordToMatrix();
-        ctm.chargerFichier("./src/CoordToMatrix/Test.txt");
+        ctm.chargerFichier(new File("./src/CoordToMatrix/Test.txt"));
 		ctm.generDat("Hey");
     }
 
