@@ -13,13 +13,13 @@ public class CoordToMatrix
 {
 	public static final int DEFAULT_NB_VEHICULE = 4;
 
-    private float[][] matrix;
-    private Point[]   points;
-    private int       nbClient;
+    float[][] matrix;
+    Point[]   points;
+    int       nbClient;
 
-    private int   capacite;
+    int   capacite;
 
-    private float resultatOpti;
+    float resultatOpti;
 
     public boolean chargerFichier(File file) 
 	{
@@ -73,7 +73,24 @@ public class CoordToMatrix
 		return true;
     }
 
+	public void genererNetXml(String nameFile)
+	{
+		// Crée un fichier de données
+		try {
+			PrintWriter pw = new PrintWriter( new OutputStreamWriter(new FileOutputStream(nameFile+ToNetXML.EXTENSION), "UTF8" ));
 
+
+			// Génération du commentaire au dessus 
+			pw.println(new ToNetXML(this).getFormat());
+
+
+			pw.close();
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void generDat(String nameFile)
 	{
@@ -92,7 +109,6 @@ public class CoordToMatrix
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 
@@ -117,7 +133,7 @@ public class CoordToMatrix
 
 		String demande = "[";
 		for (Point p : this.points) {
-			demande += ", " + p.demande;
+			demande += ", " + p.demande();
 		}
 		demande = demande.replaceFirst(", ", "");
 		
@@ -130,7 +146,7 @@ public class CoordToMatrix
 			distance += "\t[";
 			for (int j = 0; j < matrix[i].length; j++) 
 			{
-				distance += String.format("%.2f", matrix[i][j]);
+				distance += String.format(Locale.US, "%.2f", matrix[i][j]);
 				if (j != matrix[i].length - 1) distance += ", ";
 			}
 			distance += "]";
@@ -143,34 +159,19 @@ public class CoordToMatrix
 	}
 
 
-	private static String getDate ()
+	public static String getDate ()
 	{
 		Date now = new Date();
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy 'at' HH:mm:ss", Locale.FRANCE);
 
         return formatter.format(now);
-	}  
-
-    private record Point(int num, int demande, float x, float y) {
-
-        public float getDistance(Point c) {
-            return Math.abs(this.x - c.x) + Math.abs(this.y - c.y);
-        }
-
-        public String toString() {
-            return "Point [num=" + num + ", demande=" + demande + ", x=" + x + ", y=" + y + "]";
-        }
-    }
-
-
-	
-
+	}
 
     public static void main(String[] args) {
         CoordToMatrix ctm = new CoordToMatrix();
         ctm.chargerFichier(new File("./src/CoordToMatrix/Test.txt"));
-		ctm.generDat("Hey");
+		ctm.genererNetXml("Hey");
     }
 
 }
