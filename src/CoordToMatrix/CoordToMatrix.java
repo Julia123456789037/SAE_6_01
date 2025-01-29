@@ -130,7 +130,7 @@ public class CoordToMatrix
 			distance += "\t[";
 			for (int j = 0; j < matrix[i].length; j++) 
 			{
-				distance += String.format("%.2f", matrix[i][j]);
+				distance += String.format("%.2f", matrix[i][j]).replace(',', '.');
 				if (j != matrix[i].length - 1) distance += ", ";
 			}
 			distance += "]";
@@ -161,16 +161,6 @@ public class CoordToMatrix
         public String toString() {
             return "Point [num=" + num + ", demande=" + demande + ", x=" + x + ", y=" + y + "]";
         }
-    }
-
-
-	
-
-
-    public static void main(String[] args) {
-        CoordToMatrix ctm = new CoordToMatrix();
-        ctm.chargerFichier(new File("./src/CoordToMatrix/Test.txt"));
-		ctm.generDat("Hey");
     }
 
 }
