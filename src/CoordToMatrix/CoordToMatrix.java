@@ -97,8 +97,6 @@ public class CoordToMatrix
 		// Crée un fichier de données
 		try {
 
-			
-			
 			// Ajouter l'extension .dat si elle n'est pas présente
 			if (!nameFile.toLowerCase().endsWith(".dat")) {
 				nameFile += ".dat";
