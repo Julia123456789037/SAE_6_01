@@ -96,7 +96,14 @@ public class CoordToMatrix
 	{
 		// Crée un fichier de données
 		try {
-			PrintWriter pw = new PrintWriter( new OutputStreamWriter(new FileOutputStream(nameFile+".dat"), "UTF8" ));
+
+			
+			
+			// Ajouter l'extension .dat si elle n'est pas présente
+			if (!nameFile.toLowerCase().endsWith(".dat")) {
+				nameFile += ".dat";
+			}
+			PrintWriter pw = new PrintWriter( new OutputStreamWriter(new FileOutputStream(nameFile), "UTF8" ));
 
 
 			// Génération du commentaire au dessus 
@@ -119,7 +126,7 @@ public class CoordToMatrix
 	{
 		String text ="/*********************************************\r\n"                 +
 					 " * OPL 22.1.1.0 Data\r\n"                                           + 
-					 " * Author: Ottirate\r\n"                                            + 
+					 " * Author: Groupe MAJ\r\n"                                          + 
 					 " * Creation Date: "+ CoordToMatrix.getDate() +"\r\n"                + 
 					 " *********************************************/\r\n"                +
 		             "// Nombre de sommets : dépôt + clients\n"                           +
@@ -172,6 +179,7 @@ public class CoordToMatrix
         CoordToMatrix ctm = new CoordToMatrix();
         ctm.chargerFichier(new File("./src/CoordToMatrix/Test.txt"));
 		ctm.genererNetXml("Hey");
+		ctm.generDat("Hey");
     }
 
 }
