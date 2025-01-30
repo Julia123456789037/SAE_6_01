@@ -89,6 +89,8 @@ public class FrameMatrix extends JFrame implements ActionListener
 		this.setLayout(new BorderLayout(10,30));
 		this.add(panelImporter, BorderLayout.NORTH);
 		this.add(panelExporter, BorderLayout.CENTER);
+		this.add(new JPanel(), BorderLayout.WEST);
+		this.add(new JPanel(), BorderLayout.EAST);
 
 		// Activer les bouttons
 		this.btnImporter.addActionListener(this);
