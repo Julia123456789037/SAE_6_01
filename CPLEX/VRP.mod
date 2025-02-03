@@ -18,8 +18,7 @@ int idDepot = 1;                      // l'indice du dépôt
 
 // Variables de décision
 dvar boolean x[Noeuds][Noeuds][Vehicules]; // 1 si le véhicule v passe de i à j, 0 sinon
-dvar int+ Qrestant[Noeuds][Vehicules];     // Capacité restante du véhicule v au noeud i
-dvar float+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
+dvar int+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
 
 // Fonction objectif : Minimiser la distance totale
 minimize sum(v in Vehicules, i in Noeuds, j in Noeuds : i != j) Distance[i][j] * x[i][j][v];
@@ -31,29 +30,10 @@ subject to {
     sum(v in Vehicules, j in Noeuds : j != i) x[i][j][v] == 1;
   
   // Chaque véhicule doit revenir au dépôt s'il sort
-  forall(v in Vehicules) {
-    sum(i in Noeuds : i != idDepot) x[idDepot][i][v] == sum(j in Noeuds : j != idDepot) x[j][idDepot][v];
-  }
-  
   forall(v in Vehicules, i in Noeuds : i != idDepot) {
     sum(j in Noeuds : j != i) x[j][i][v] == sum(j in Noeuds : j != i) x[i][j][v];
-	}
+   }
 
-  // Limitation de la capacité des véhicules
-  forall(v in Vehicules, i in Noeuds : i != idDepot) {
-    // La capacité restante au nœud i est mise à jour en fonction de la demande servie
-    sum(j in Noeuds : j != idDepot) Demande[i] * x[i][j][v] <= Qmax;
-  }
-
-  // Mise à jour de la capacité restante pour chaque transition
-  forall(v in Vehicules, i in Noeuds : i != idDepot, j in Noeuds : j != i) {
-    Qrestant[j][v] >= Qrestant[i][v] - Demande[j] * x[i][j][v];
-  }
-
-  // Initialisation de la capacité au dépôt
-  forall(v in Vehicules) {
-    Qrestant[idDepot][v] == Qmax;
-  }
 
   // Capacité restante doit rester dans les limites [0, Qmax]
   forall(v in Vehicules) {
@@ -75,7 +55,10 @@ subject to {
     u[i][v] >= 0;
     u[i][v] <= Qmax;
   }
+  
+  
 }
+
 
 // Section d'exécution pour afficher les résultats
 execute {
@@ -87,7 +70,12 @@ execute {
     // Parcours des véhicules pour afficher leurs tournées
     for (var v in Vehicules) {
         var distV = 0; // Distance parcourue par le véhicule
-        var clientVisiter = "Dépôt -> ";
+        var cumulSoustraction = Qmax;
+        
+        // Chaines de caractères à l'affichage
+        var clientVisiter = "";
+        var qteDepose     = Qmax + " -> ";
+        
         var vehiculeSorti = false;
         var capaciteUtilisee = 0;  // Variable pour suivre la capacité utilisée par le véhicule
 
@@ -95,7 +83,11 @@ execute {
             for (var j in Noeuds) {
                 if (i != j && x[i][j][v].solutionValue > 0.99) { // Vérification améliorée
                     vehiculeSorti = true;
-                    clientVisiter += j + " -> "; // Ajout du client visité
+                    clientVisiter = j + " -> " + clientVisiter; // Ajout du client visité
+                    
+                    cumulSoustraction -= Demande[j] * x[i][j][v]; // Calcul de la quantité de marchandises restantes
+                    qteDepose += cumulSoustraction + " -> ";
+                    
                     // Ajouter la distance uniquement pour les arcs actifs
                     distV += Distance[i][j];
 
@@ -107,22 +99,25 @@ execute {
             }
         }
 
+		clientVisiter = "Dépôt -> " + clientVisiter;
+		
         // Afficher la tournée et les statistiques du véhicule
         if (vehiculeSorti) {
             nbVehiculeSorti += 1;
             writeln("==============================");
-            writeln("Véhicule ", v, ":");
-            writeln("  Tournée : ", clientVisiter, "Dépôt");
+            writeln(" Véhicule ", v, ":");
+            writeln(" ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ");
+            writeln("  Tournée      : ", clientVisiter, "Dépôt");
+            
+            var capaciteRestante = Qmax - capaciteUtilisee;
+            writeln("  Qté déposées : ", qteDepose, capaciteRestante);
             writeln("  Distance parcourue : ", distV);
             
             // Affichage de la capacité restante et de la capacité utilisée
-            var capaciteRestante = Qmax - capaciteUtilisee;
             writeln("  Capacité utilisée : ", capaciteUtilisee);
-            writeln("  Capacité restante au dépôt : ", capaciteRestante);
             totalDistance += distV;
         }
     }
-
     writeln("");
     writeln("==============================");
     writeln("==============================");
