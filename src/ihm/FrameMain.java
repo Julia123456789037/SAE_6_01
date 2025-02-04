@@ -265,8 +265,8 @@ public class FrameMain extends JFrame implements ActionListener
 	}
 
 	public String        getRes   () { return this.os. getRes   (); }
-	public String        getNetXML() { return this.tnx.getNetXML(); }
-	public String        getRouXML() { return this.tnx.getRouXML(); }
+	public String        getNetXML() { return this.ts.getNetXML(); }
+	public String        getRouXML() { return this.ts.getRouXML(); }
 	public BufferedImage getImage () { return this.os. getImage (); }
 
 	
