@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <input>
+        <net-file value="CantineNetwork.net.xml"/>
+        <route-files value="Cantine.rou.xml"/>
+    </input>
+</configuration>
