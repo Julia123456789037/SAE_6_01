@@ -209,7 +209,7 @@ public class FrameMatrix extends JFrame implements ActionListener
 
 	
 
-	private void telechargerDat(File repertoireBase) 
+	public void telechargerDat() 
 	{
 		// Demande le dossier d'enregistrement à l'utilisateur
 		JFileChooser fileChooser = new JFileChooser();
