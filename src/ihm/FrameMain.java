@@ -25,7 +25,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import metier.OutilSumo;
-import metier.ToNetXML;
 import metier.ToSUMO;
 
 public class FrameMain extends JFrame implements ActionListener
@@ -33,7 +32,6 @@ public class FrameMain extends JFrame implements ActionListener
 	public static Color COULEUR  = Color.decode("#1D69AA");
 
 	private OutilSumo os;
-	private ToNetXML  tnx;
 	private ToSUMO    ts;
 
 	private PanelExemple[] panels;
@@ -47,7 +45,6 @@ public class FrameMain extends JFrame implements ActionListener
 	public FrameMain ()
 	{
 		this.os  = new OutilSumo();
-		this.tnx = new ToNetXML (this.os);
 		this.ts  = new ToSUMO   (this.os);
 		
 		this.panels = new PanelExemple[3];

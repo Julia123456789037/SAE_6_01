@@ -116,11 +116,11 @@ public class ToSUMO
         // Itération sur les tournées des véhicules
         for (Map.Entry<Integer, List<Point>> set : this.utilSumo.tournees.entrySet())
         {
-            String numVehicule = "V_" + set.getKey();
+            String numVehicule = "V" + set.getKey();
             ArrayList<Point> points = new ArrayList<Point>(set.getValue());
 
             retStr += 
-            "\t<trip id=\"t_"+ numVehicule +"\" depart=\"0.00\" from=\"J" + points.get(0) + "\" to=\"J" + points.get(points.size() -1) +
+            "\t<trip id=\"t_"+ numVehicule +"\" depart=\"0.00\" from=\"J" + points.get(0).num() + "\" to=\"J" + points.get(points.size() -1).num() +
             "\" via=\"";
 
             for (int j = 1; j < points.size() -1; j++)
