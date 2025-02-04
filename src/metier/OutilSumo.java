@@ -49,8 +49,8 @@ public class OutilSumo
             this.capacite = input.nextInt();
 
             // Lire le point de dépôt
-            int xDepot = input.nextInt();
-            int yDepot = input.nextInt();
+            float xDepot = input.nextFloat();
+            float yDepot = input.nextFloat();
             this.points = new Point[nbClient + 1];
             points[0] = new Point(0, 0, xDepot, yDepot);
 
@@ -58,9 +58,9 @@ public class OutilSumo
             for (int i = 1; i <= nbClient; i++) 
 			{
                 int num = input.nextInt();
-                int demande = input.nextInt();
                 float x = input.nextFloat();
                 float y = input.nextFloat();
+                int demande = input.nextInt();
 
                 points[i] = new Point(num, demande, x, y);
             }
@@ -76,9 +76,16 @@ public class OutilSumo
                     
                 }
             }
-			
+			System.out.println("Matrice des distances :");
+            for (int i = 0; i <= nbClient; i++) {
+                for (int j = 0; j <= nbClient; j++) {
+                    System.out.printf("%.2f ", matrix[i][j]);
+                }
+                System.out.println();
+            }
             input.close();
         } catch (Exception e) {
+            e.printStackTrace();
 			return false;
         }
 
