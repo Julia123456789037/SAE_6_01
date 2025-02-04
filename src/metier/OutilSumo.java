@@ -17,14 +17,14 @@ import java.util.regex.Pattern;
 
 public class OutilSumo 
 {
-    private float[][] matrix;
-    private Point[]   points;
-    private int       nbClient;
+    float[][] matrix;
+    Point[]   points;
+    int       nbClient;
 
-    private int   capacite;
+    int   capacite;
 
-    private float resultatOpti;
-	private HashMap<Integer, List<Point>> tournees;	
+    float resultatOpti;
+	HashMap<Integer, List<Point>> tournees;	
 
 
 

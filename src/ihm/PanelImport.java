@@ -93,7 +93,7 @@ public class PanelImport extends PanelExemple implements ActionListener
 
 		if (e.getSource() == this.btnExporter)
 		{
-			this.frame.telechargerDat();
+			this.frame.telechargerContenue(this.frame.getTextDat(), ".dat");
 		}
 
 		

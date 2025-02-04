@@ -15,12 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import metier.OutilSumo;
+import metier.ToNetXML;
+import metier.ToSUMO;
 
 public class FrameMain extends JFrame implements ActionListener
 {
 	public static Color COULEUR  = Color.decode("#1D69AA");
 
 	private OutilSumo os;
+	private ToNetXML  tnx;
+	private ToSUMO    ts;
 
 	private PanelExemple[] panels;
 
@@ -32,7 +36,9 @@ public class FrameMain extends JFrame implements ActionListener
 
 	public FrameMain ()
 	{
-		this.os = new OutilSumo();
+		this.os  = new OutilSumo();
+		this.tnx = new ToNetXML (this.os);
+		this.ts  = new ToSUMO   (this.os);
 		
 		this.panels = new PanelExemple[3];
 		this.ind = 0;
@@ -138,7 +144,7 @@ public class FrameMain extends JFrame implements ActionListener
 	
 	
 
-	public void telechargerDat() 
+	public void telechargerContenue(String file, String ext) 
 	{
 		// Demande le dossier d'enregistrement à l'utilisateur
 		JFileChooser fileChooser = new JFileChooser();
@@ -152,7 +158,7 @@ public class FrameMain extends JFrame implements ActionListener
 			String cheminFichier = fichierAEnregistrer.getAbsolutePath();
 			
 			// Enregistré le fichier 
-			this.os.genererFichier(this.os.getTextDat(), ".dat", cheminFichier);
+			this.os.genererFichier(file, ext, cheminFichier);
 		}
 	}
 
@@ -163,6 +169,8 @@ public class FrameMain extends JFrame implements ActionListener
 	}
 
 	public String getRes() { return this.os.getRes(); }
+	public String getNetXML() { return this.tnx.getNetXML(); }
+	public String getRouXML() { return this.tnx.getRouXML(); }
 
 	
 
