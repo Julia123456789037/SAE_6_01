@@ -18,7 +18,6 @@ int idDepot = 1;                      // l'indice du dépôt
 
 // Variables de décision
 dvar boolean x[Noeuds][Noeuds][Vehicules]; // 1 si le véhicule v passe de i à j, 0 sinon
-dvar int+ Qrestant[Noeuds][Vehicules];     // Capacité restante du véhicule v au noeud i
 dvar float+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
 
 // Fonction objectif : Minimiser la distance totale
@@ -31,29 +30,10 @@ subject to {
     sum(v in Vehicules, j in Noeuds : j != i) x[i][j][v] == 1;
   
   // Chaque véhicule doit revenir au dépôt s'il sort
-  forall(v in Vehicules) {
-    sum(i in Noeuds : i != idDepot) x[idDepot][i][v] == sum(j in Noeuds : j != idDepot) x[j][idDepot][v];
-  }
-  
   forall(v in Vehicules, i in Noeuds : i != idDepot) {
     sum(j in Noeuds : j != i) x[j][i][v] == sum(j in Noeuds : j != i) x[i][j][v];
-	}
+   }
 
-  // Limitation de la capacité des véhicules
-  forall(v in Vehicules, i in Noeuds : i != idDepot) {
-    // La capacité restante au nœud i est mise à jour en fonction de la demande servie
-    sum(j in Noeuds : j != idDepot) Demande[i] * x[i][j][v] <= Qmax;
-  }
-
-  // Mise à jour de la capacité restante pour chaque transition
-  forall(v in Vehicules, i in Noeuds : i != idDepot, j in Noeuds : j != i) {
-    Qrestant[j][v] >= Qrestant[i][v] - Demande[j] * x[i][j][v];
-  }
-
-  // Initialisation de la capacité au dépôt
-  forall(v in Vehicules) {
-    Qrestant[idDepot][v] == Qmax;
-  }
 
   // Capacité restante doit rester dans les limites [0, Qmax]
   forall(v in Vehicules) {
@@ -75,6 +55,8 @@ subject to {
     u[i][v] >= 0;
     u[i][v] <= Qmax;
   }
+  
+  
 }
 
 // Section d'exécution pour afficher les résultats
