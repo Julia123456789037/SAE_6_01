@@ -18,7 +18,7 @@ int idDepot = 1;                      // l'indice du dépôt
 
 // Variables de décision
 dvar boolean x[Noeuds][Noeuds][Vehicules]; // 1 si le véhicule v passe de i à j, 0 sinon
-dvar int+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
+int float+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
 
 // Fonction objectif : Minimiser la distance totale
 minimize sum(v in Vehicules, i in Noeuds, j in Noeuds : i != j) Distance[i][j] * x[i][j][v];
