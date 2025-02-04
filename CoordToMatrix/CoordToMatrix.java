@@ -77,11 +77,11 @@ public class CoordToMatrix
 	{
 		// Crée un fichier de données
 		try {
-			PrintWriter pw = new PrintWriter( new OutputStreamWriter(new FileOutputStream(nameFile+ToNetXML.EXTENSION), "UTF8" ));
+			PrintWriter pw = new PrintWriter( new OutputStreamWriter(new FileOutputStream(nameFile+ToSUMO.EXTENSION_GRAPH), "UTF8" ));
 
 
 			// Génération du commentaire au dessus 
-			pw.println(new ToNetXML(this).getFormat());
+			pw.println(new ToSUMO(this).getNetXML());
 
 
 			pw.close();
