@@ -2,16 +2,26 @@ package ihm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import metier.OutilSumo;
@@ -46,8 +56,8 @@ public class FrameMain extends JFrame implements ActionListener
 		this.panels[1] = new PanelResults(this);
 		this.panels[2] = new PanelFichier(this);
 
-		this.btnSuivant   = new JButton("Suivant");
-		this.btnPrecedent = new JButton("Precedent");
+		this.btnSuivant   = FrameMain.styliserBouton("Suivant");
+		this.btnPrecedent = FrameMain.styliserBouton("Precedent");
 
 		this.setLayout(new BorderLayout());
 		this.addPanelCorrespondant();
@@ -70,6 +80,7 @@ public class FrameMain extends JFrame implements ActionListener
 
 
 		this.add(this.panels[this.ind], BorderLayout.CENTER);
+		this.panels[this.ind].setBorder(new EmptyBorder(10,10,10,10));
 		
 		JPanel panelSouth = new JPanel();
 		panelSouth.add(this.btnPrecedent);
@@ -125,6 +136,40 @@ public class FrameMain extends JFrame implements ActionListener
 		}
 	}
 
+	
+
+	public static JButton styliserBouton(String txt)
+	{
+		JButton btn = new JButton(txt);
+
+		btn.setBorder(BorderFactory.createLineBorder(FrameMain.COULEUR.darker(), 2));
+		btn.setBackground(FrameMain.COULEUR);
+		btn.setFocusable(false);
+		btn.setForeground(Color.WHITE);
+
+		Dimension dim = new Dimension(100, 30);
+		btn.setSize(dim);
+		btn.setPreferredSize(dim);
+
+		return btn;
+	}
+
+
+	public static JTextArea styliserTextArea(String s)
+	{
+		JTextArea txt = new JTextArea(s);
+		
+		Border border = BorderFactory.createLineBorder(FrameMain.COULEUR);
+		border        = BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		// txt.setLineWrap(true);
+		txt.setWrapStyleWord(true);
+		txt.setBorder(border);
+
+
+		return txt;
+	}
+
 
 	public void lireDat(File file) 
 	{
@@ -162,15 +207,70 @@ public class FrameMain extends JFrame implements ActionListener
 		}
 	}
 
+
+
+
+	public void telechargerSumo() 
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+		int returnValue = fileChooser.showDialog(null, "Sélectionner un dossier");
+
+		if (returnValue == JFileChooser.APPROVE_OPTION) 
+		{
+			File selectedFolder = fileChooser.getSelectedFile();
+
+			String nomFichier = JOptionPane.showInputDialog(null, "Entrez un nom de fichier :");
+
+			if (nomFichier != null && !nomFichier.trim().isEmpty()) 
+			{
+
+				String nom = selectedFolder.getAbsolutePath() + "/" + nomFichier;
+				this.os.genererFichier(this.ts.getRouXML(), ".rou.xml", nom);
+				this.os.genererFichier(this.ts.getNetXML(), ".net.xml", nom);
+				
+				// TODO : Simulation
+				// this.os.genererFichier(this.ts.getRouXML(), ".rou.xml", nom);
+			}
+		}
+	}
+
+	public void telechargerImage()
+	{
+		
+		// Demande le dossier d'enregistrement à l'utilisateur
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Spécifiez un fichier à enregistrer");
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		
+		int userSelection = fileChooser.showSaveDialog(this);
+		
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+			File fichierAEnregistrer = fileChooser.getSelectedFile();
+			String cheminFichier = fichierAEnregistrer.getAbsolutePath();
+			
+			// Enregistré le fichier 
+			this.os.telechargerImage(cheminFichier);
+		}
+	}
+
 	public void traiterRes(String s)
 	{
 		this.os.traiterRes(s);
 		this.maj();
 	}
 
-	public String getRes() { return this.os.getRes(); }
-	public String getNetXML() { return this.tnx.getNetXML(); }
-	public String getRouXML() { return this.tnx.getRouXML(); }
+
+	public void genererImage()
+	{
+		this.os.genererGraphe();
+	}
+
+	public String        getRes   () { return this.os. getRes   (); }
+	public String        getNetXML() { return this.tnx.getNetXML(); }
+	public String        getRouXML() { return this.tnx.getRouXML(); }
+	public BufferedImage getImage () { return this.os. getImage (); }
 
 	
 

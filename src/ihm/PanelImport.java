@@ -30,15 +30,15 @@ public class PanelImport extends PanelExemple implements ActionListener
 
 		this.setLayout(new BorderLayout());
 
-		this.btnImporter = new JButton("Importer");
-		this.btnCopier   = new JButton("Copier");
-		this.btnExporter = new JButton("Exporter");
+		this.btnImporter = FrameMain.styliserBouton("Importer");
+		this.btnCopier   = FrameMain.styliserBouton("Copier");
+		this.btnExporter = FrameMain.styliserBouton("Exporter");
 
-		this.txtDat = new JTextArea("Importer un fichier correspondant a la structure demander.");
+		this.txtDat = FrameMain.styliserTextArea("Importer un fichier correspondant a la structure demander.");
 
 		this.add(FrameMain.panelTitre("Importer le fichier Mistic", FrameMain.COULEUR), BorderLayout.NORTH);
 
-		JPanel panelBtn = new JPanel(new GridLayout(3,1));
+		JPanel panelBtn = new JPanel(new GridLayout(3,1,0,3));
 		panelBtn.add(this.btnImporter);
 		panelBtn.add(this.btnCopier);
 		panelBtn.add(this.btnExporter);

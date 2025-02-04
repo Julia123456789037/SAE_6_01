@@ -3,10 +3,13 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import metier.ToSUMO;
@@ -15,7 +18,9 @@ import metier.ToSUMO;
 public class PanelFichier extends PanelExemple implements ActionListener
 {
 	private JButton btnFicMap;
-	private JButton btnFicRoute;
+	private JButton btnImage;
+
+	private JLabel lblImage;
 	
 	public PanelFichier (FrameMain frame)
 	{
@@ -24,22 +29,32 @@ public class PanelFichier extends PanelExemple implements ActionListener
 		this.add(FrameMain.panelTitre("Exporter les fichiers", FrameMain.COULEUR), BorderLayout.NORTH);
 
 
-		this.btnFicMap    = new JButton("Fichier Map");
-		this.btnFicRoute  = new JButton("Fichier Route");
+		this.btnFicMap    = FrameMain.styliserBouton("Fichier Sumo");
+		this.btnImage     = FrameMain.styliserBouton("Image");
+		this.lblImage	  = new JLabel();
 
-		JPanel panelCentre = new JPanel();
+		JPanel panelEast = new JPanel(new GridLayout(2,1, 0, 3));
 
-		panelCentre.add(this.btnFicMap);
-		panelCentre.add(this.btnFicRoute);
+		panelEast.add(this.btnFicMap);
+		panelEast.add(this.btnImage);
 
-		this.add(panelCentre, BorderLayout.CENTER);	
+		this.add(panelEast, BorderLayout.EAST);	
+
+		JScrollPane sp = new JScrollPane();
+		sp.setViewportView(this.lblImage);
+		this.add(sp, BorderLayout.CENTER);
 
 
 		this.btnFicMap.addActionListener(this);
-		this.btnFicRoute.addActionListener(this);	
+		this.btnImage.addActionListener(this);	
 	}
 
-	public void dessinerInterface() {
+	public void dessinerInterface() 
+	{
+		this.frame.genererImage();
+
+		ImageIcon img = new ImageIcon(this.frame.getImage());
+		this.lblImage.setIcon(img);
 	}
 
 	public boolean peutSuivant() {
@@ -48,10 +63,11 @@ public class PanelFichier extends PanelExemple implements ActionListener
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.btnFicMap) {
-			this.frame.telechargerContenue(this.frame.getNetXML(), ".net.xml");
+			this.frame.telechargerSumo();
 		}
-		else if (e.getSource() == this.btnFicRoute) {
-			this.frame.telechargerContenue(this.frame.getRouXML(), ".rou.xml");
+
+		if (e.getSource() == this.btnImage) {
+			this.frame.telechargerImage();
 		}
 	}
 }

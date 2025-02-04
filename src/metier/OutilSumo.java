@@ -1,5 +1,11 @@
 package metier;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -15,6 +21,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import ihm.FrameMain;
+
 public class OutilSumo 
 {
     float[][] matrix;
@@ -25,6 +33,9 @@ public class OutilSumo
 
     float resultatOpti;
 	HashMap<Integer, List<Point>> tournees;	
+
+
+    BufferedImage bi;
 
 
 
@@ -241,5 +252,126 @@ public class OutilSumo
         }
 
         return res;
+    }
+
+
+
+
+    public void genererGraphe()
+    {
+        int d = 20; 
+    
+        float maxX, minX;
+        float maxY, minY;
+    
+        maxX = minX = this.points[0].x();
+        maxY = minY = this.points[0].y();
+    
+        for (Point p : this.points)
+        {
+            if (p.x() < minX) minX = p.x();
+            if (p.y() < minY) minY = p.y();
+    
+            if (p.x() > maxX) maxX = p.x();
+            if (p.y() > maxY) maxY = p.y();
+        }
+
+        float scaleFactor = 650 / Math.max((int) ((Math.abs(maxX - minX))),(int) ((Math.abs(maxY - minY)))); 
+        scaleFactor = Math.max(scaleFactor, 40);
+
+        int width  = (int) ((Math.abs(minX) + Math.abs(maxX)) * scaleFactor) + d * 2 + 40;
+        int height = (int) ((Math.abs(minY) + Math.abs(maxY)) * scaleFactor) + d * 2 + 40;
+    
+        this.bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = bi.createGraphics();
+        Font font = new Font("Arial", Font.BOLD, d/2); 
+        FontMetrics metrics = g2.getFontMetrics(font);
+
+    
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    
+        int offsetX = (int) (-minX * scaleFactor) + 20;
+        int offsetY = (int) (-minY * scaleFactor) + 20;
+    
+        // Dessine les chemins
+        for (Integer num : this.tournees.keySet())
+        {
+            int r = 50 + (int) (Math.random() * 156);
+            int g = 50 + (int) (Math.random() * 156);
+            int b = 50 + (int) (Math.random() * 156);
+            g2.setColor(new Color(r, g, b));
+    
+            List<Point> list = this.tournees.get(num);
+            for (int i = 0; i < list.size() - 1; i++)
+            {
+                Point p1 = list.get(i);
+                Point p2 = list.get(i + 1);
+    
+                this.drawArrow(g2,
+                    (int) (p1.x() * scaleFactor) + offsetX, 
+                    (int) (p1.y() * scaleFactor) + offsetY,
+                    (int) (p2.x() * scaleFactor) + offsetX, 
+                    (int) (p2.y() * scaleFactor) + offsetY
+                );
+            }
+        }
+    
+        // Dessiner les points
+        for (Point p : this.points)
+        {
+            int px = (int) (p.x() * scaleFactor) + offsetX;
+            int py = (int) (p.y() * scaleFactor) + offsetY;
+
+            g2.setColor(FrameMain.COULEUR);
+            g2.fillOval(
+                px - d / 2, 
+                py - d / 2, 
+                d, d
+            );
+
+
+            String label = String.valueOf(p.num());
+            int textWidth = metrics.stringWidth(label);
+            int textHeight = metrics.getHeight();
+            
+            g2.setColor(FrameMain.COULEUR.darker().darker());
+            g2.drawString(label, px - textWidth / 2 - 1, py + textHeight / 4 + 1); 
+        }
+    }
+
+
+    private void drawArrow(Graphics2D g2, int x1, int y1, int x2, int y2) 
+    {
+        double arrowLength = 10; 
+
+        int midX = (x1 + x2) / 2;
+        int midY = (y1 + y2) / 2;
+
+        double angle = Math.atan2(y2 - y1, x2 - x1);
+
+        int xArrow1 = (int) (midX - arrowLength * Math.cos(angle - Math.PI / 6));
+        int yArrow1 = (int) (midY - arrowLength * Math.sin(angle - Math.PI / 6));
+
+        int xArrow2 = (int) (midX - arrowLength * Math.cos(angle + Math.PI / 6));
+        int yArrow2 = (int) (midY - arrowLength * Math.sin(angle + Math.PI / 6));
+
+        g2.drawLine(x1, y1, x2, y2);
+
+        g2.drawLine(midX, midY, xArrow1, yArrow1);
+        g2.drawLine(midX, midY, xArrow2, yArrow2);
+    }
+
+    
+
+    public BufferedImage getImage() { return this.bi; }
+
+    public void telechargerImage(String nameFile)
+    {
+        try {
+            File outputfile = new File(nameFile + ".png");
+            javax.imageio.ImageIO.write(this.bi, "png", outputfile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

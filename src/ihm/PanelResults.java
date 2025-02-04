@@ -17,9 +17,9 @@ public class PanelResults extends PanelExemple implements ActionListener
 	public PanelResults (FrameMain frame)
 	{
 		super(frame);
-		this.txtRes = new JTextArea("Remplacer ce texte par les resultats de la simulation.");
+		this.txtRes = FrameMain.styliserTextArea("Remplacer ce texte par les resultats de la simulation.");
 		this.lblRes = new JLabel("Pas de donnée ");
-		this.btnRes = new JButton("Analyser");
+		this.btnRes = FrameMain.styliserBouton("Analyser");
 		
 		this.setLayout(new BorderLayout());
 
