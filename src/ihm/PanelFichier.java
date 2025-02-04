@@ -48,10 +48,10 @@ public class PanelFichier extends PanelExemple implements ActionListener
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.btnFicMap) {
-			this.frame.telechargerContenue(this.frame.getNetXML(), ".net.xml");
+			this.frame.telechargerContenue(this.frame.getNetXML(), ToSUMO.EXTENSION_MAP);
 		}
 		else if (e.getSource() == this.btnFicRoute) {
-			this.frame.telechargerContenue(this.frame.getRouXML(), ".rou.xml");
+			this.frame.telechargerContenue(this.frame.getRouXML(), ToSUMO.EXTENSION_ROUTE);
 		}
 	}
 }
