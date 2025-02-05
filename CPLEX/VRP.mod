@@ -103,7 +103,7 @@ execute {
         }
 
         // Retour au dépôt
-        clientVisiter += " -> Dépôt"; 
+        clientVisiter = "Dépôt -> " + clientVisiter; 
 
         if (vehiculeSorti) {  // Si le véhicule a réellement effectué un trajet
             nbVehiculeSorti += 1;
