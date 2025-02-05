@@ -7,8 +7,9 @@ import java.util.Map;
 
 public class ToSUMO
 {
-    public static final String EXTENSION_MAP   = ".net.xml";
-    public static final String EXTENSION_ROUTE = ".rou.xml";
+    public static final String EXTENSION_MAP          = ".net.xml";
+    public static final String EXTENSION_ROUTE        = ".rou.xml";
+    public static final String EXTENSION_SIMULATION   = ".sumocfg";
 
     private OutilSumo utilSumo;
 
@@ -21,7 +22,7 @@ public class ToSUMO
     {
 		String retStr =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n"                                                                                                               +
-        "<!-- generated on "+ OutilSumo.getDate() +" by MAJ for SUMO netedit Version 1.15.0\r\n"                                                                       +
+        "<!-- generated on "+ OutilSumo.getDate() +" by SUMEX for SUMO netedit Version 1.15.0\r\n"                                                                       +
         "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/netconvertConfiguration.xsd\">\r\n" +
 
         "\t<input>\r\n"                                                                                  +
@@ -70,7 +71,7 @@ public class ToSUMO
                     
                     String shape = xFrom + "," + yFrom + " " + xTo + "," + yTo; // Génération du shape
                     
-                    retStr += "\t<edge id=\"E" + edgeIndex + "\" from=\"J" + i + "\" to=\"J" + j + "\" priority=\"1\">\r\n" +
+                    retStr += "\t<edge id=\"E-J" + i + "J" + j + "\" from=\"J" + i + "\" to=\"J" + j + "\" priority=\"1\">\r\n" +
                               "\t\t<lane id=\"E" + edgeIndex + "_0\" index=\"0\" speed=\"13.89\" width=\"0.8\" length=\"" + distance + 
                               "\" shape=\"" + shape + "\"/>\r\n" +  // Ajout du shape ici
                               "\t</edge>\r\n\r\n";
@@ -99,6 +100,19 @@ public class ToSUMO
 					  "\t\tshape=\"142.73,46.58\"/>\r\n";
 		}
 
+        for (int i = 0; i < this.utilSumo.matrix.length; i++) {
+            for (int j = 0; j < this.utilSumo.matrix[i].length; j++) {
+                if (i != j && this.utilSumo.matrix[i][j] > 0) {
+                    for (int k = 0; k < this.utilSumo.matrix[j].length; k++) {
+                        if (j != k && this.utilSumo.matrix[j][k] > 0) {
+                            retStr += "\t<connection from=\"E-J" + j + "J" + i + "\" to=\"E-J" + k + "J" + j + 
+                              "\" fromLane=\"0\" toLane=\"0\" via=\"J" + j + "\"/>\r\n";
+                        }
+                    }
+                }
+            }
+        }
+
         retStr += "\r\n</net>"; 
         return retStr;
     }
@@ -107,40 +121,58 @@ public class ToSUMO
     {
 		String retStr =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n"                                     +
-        "<!-- generated on "+ OutilSumo.getDate() +" by MAJ for SUMO netedit Version 1.15.0\r\n" +
+        "<!-- generated on "+ OutilSumo.getDate() +" by SUMEX for SUMO netedit Version 1.15.0\r\n" +
         "-->\r\n\r\n";
         
-        retStr += "<routes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/routes_file.xsd\">\r\n";
-        retStr += "\t<!-- Vehicles, persons and containers (sorted by depart) -->\r\n"; 
-        
-        // Itération sur les tournées des véhicules
-        for (Map.Entry<Integer, List<Point>> set : this.utilSumo.tournees.entrySet())
+        retStr += "<routes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/routes_file.xsd\">\r\n\r\n" +
+                  "\t<!-- Routes -->\r\n";
+
+        // Itération sur les tournées
+        int i = 0;
+        for (List<Point> values : this.utilSumo.tournees.values())
         {
-            String numVehicule = "V" + set.getKey();
-            ArrayList<Point> points = new ArrayList<Point>(set.getValue());
+            ArrayList<Point> points = new ArrayList<Point>(values);
 
-            retStr += 
-            "\t<trip id=\"t_"+ numVehicule +"\" depart=\"0.00\" from=\"J" + points.get(0).num() + "\" to=\"J" + points.get(points.size() -1).num() +
-            "\" via=\"";
-
-            for (int j = 1; j < points.size() -1; j++)
+            retStr +=  
+            "\t<route id=\"r_"+ (i + 1) +"\" edges=\"";
+            
+            int j;
+            for (j = 1; j < points.size() -2; j++)
             {
-                retStr += "E" + points.get(j).num() + " ";
+                retStr += "E-J" + points.get(j -1).num() + "J" + points.get(j).num() + " ";
             }
 
-            retStr += "\"/>\r\n";
+            retStr += "E-J" + points.get(j -1).num() + "J" + points.get(j).num() + "\"/>\r\n";
+            i++;
         }
 
-        retStr += "</routes>"; 
+        retStr +="\r\n\t<!-- Vehicles, persons and containers (sorted by depart) -->\r\n";
+
+        for (Integer numVehicule : this.utilSumo.tournees.keySet())
+        {
+            retStr +=  
+            "\t<vehicle id=\"v_" + numVehicule + "\" depart=\"0.00\" route=\"r_" + numVehicule + "\"/>\r\n";
+        }
+
+        retStr += "\r\n</routes>"; 
         return retStr;
     }
 
-	public static void main(String[] args) {
-		OutilSumo outilsumo = new OutilSumo();
-		ToSUMO ts = new ToSUMO(outilsumo);
+    public String getSimulation(String nomFichier)
+    {
+		String retStr =
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
+        "<!-- generated on "+ OutilSumo.getDate() +" by MAP SUMO GUI Version 1.21.0\r\n" +
+        "-->\r\n" +
+        "<sumoConfiguration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/sumoConfiguration.xsd\">\r\n\r\n" +
 
-		outilsumo.chargerFichier(new File("c50.txt"));
-		outilsumo.genererFichier(outilsumo.getTextDat(), ".dat", "sortieSUMO" + EXTENSION_MAP);
-		outilsumo.genererFichier(ts.getNetXML(), EXTENSION_MAP, "sortieSUMO" + EXTENSION_MAP);
-	}
+            "\t<input>\r\n" +
+            "\t\t<net-file value=\""   + nomFichier + ".net.xml\"/>\r\n" +
+            "\t\t<route-files value=\"" + nomFichier + ".rou.xml\"/>\r\n" +
+            "\t</input>\r\n\r\n" +
+
+        "</sumoConfiguration>\r\n";
+        
+        return retStr;
+    }
 }
