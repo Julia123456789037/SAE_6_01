@@ -12,10 +12,12 @@ public class ToSUMO
     public static final String EXTENSION_SIMULATION   = ".sumocfg";
 
     private OutilSumo utilSumo;
+    private int coeff;
 
     public ToSUMO(OutilSumo utilSumo)
     {
         this.utilSumo = utilSumo;
+        this.coeff = 5;
     }
 
     public String getNetXML()
@@ -63,11 +65,11 @@ public class ToSUMO
         
                     int edgeIndex = i * this.utilSumo.matrix.length + j;
 
-                    double distance = this.utilSumo.points[i].getDistance(this.utilSumo.points[j]) * 10;
-                    double xFrom = this.utilSumo.points[i].x() * 10;
-                    double yFrom = this.utilSumo.points[i].y() * 10;
-                    double xTo   = this.utilSumo.points[j].x() * 10;
-                    double yTo   = this.utilSumo.points[j].y() * 10;
+                    double distance = this.utilSumo.points[i].getDistance(this.utilSumo.points[j]) * this.coeff;
+                    double xFrom = this.utilSumo.points[i].x() * this.coeff;
+                    double yFrom = this.utilSumo.points[i].y() * this.coeff;
+                    double xTo   = this.utilSumo.points[j].x() * this.coeff;
+                    double yTo   = this.utilSumo.points[j].y() * this.coeff;
                     
                     String shape = xFrom + "," + yFrom + " " + xTo + "," + yTo; // Génération du shape
                     
@@ -94,7 +96,7 @@ public class ToSUMO
 			}
 		
 			// Création de la jonction avec incLanes renseigné
-			retStr += "\t<junction id=\"J" + i + "\" type=\"unregulated\" x=\"" + (p.x() * 10) + "\" y=\"" + (p.y() * 10) + "\"\r\n" +
+			retStr += "\t<junction id=\"J" + i + "\" type=\"unregulated\" x=\"" + (p.x() * this.coeff) + "\" y=\"" + (p.y() * this.coeff) + "\"\r\n" +
 					  "\t\tincLanes=\"" + incLanes.toString().trim() + "\"\r\n" +
 					  "\t\tintLanes=\"\"\r\n" +
 					  "\t\tshape=\"142.73,46.58\"/>\r\n\r\n";
@@ -154,8 +156,12 @@ public class ToSUMO
         i = 0;
         for (Integer numVehicule : this.utilSumo.tournees.keySet())
         {
+            int r = this.utilSumo.coulVehic[i].getRed();
+            int g = this.utilSumo.coulVehic[i].getGreen();
+            int b = this.utilSumo.coulVehic[i].getBlue();
+
             retStr +=  
-            "\t<vehicle id=\"v_" + numVehicule + "\" depart=\"0.00\" route=\"r_" + i + "\"/>\r\n";
+            "\t<vehicle id=\"v_" + numVehicule + "\" depart=\"0.00\" color=\"" + r + "," + g + "," + b + "\" route=\"r_" + i + "\"/>\r\n";
 
             i++;
         }
@@ -174,6 +180,7 @@ public class ToSUMO
 
             "\t<input>\r\n" +
             "\t\t<net-file value=\""   + nomFichier + ".net.xml\"/>\r\n" +
+            "\t\t<gui-settings-file value=\"sumex_view_setting.xml\"/>\r\n" +
             "\t\t<route-files value=\"" + nomFichier + ".rou.xml\"/>\r\n" +
             "\t</input>\r\n\r\n" +
 

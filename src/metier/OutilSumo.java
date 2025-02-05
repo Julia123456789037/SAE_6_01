@@ -88,13 +88,7 @@ public class OutilSumo
                     
                 }
             }
-			System.out.println("Matrice des distances :");
-            for (int i = 0; i <= nbClient; i++) {
-                for (int j = 0; j <= nbClient; j++) {
-                    System.out.printf("%.2f ", matrix[i][j]);
-                }
-                System.out.println();
-            }
+            
             input.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,7 +234,6 @@ public class OutilSumo
 
     public String getRes()
     {
-        System.out.println("hjhh");
         if (this.tournees == null || this.tournees.isEmpty()) return "Données incorrect ou non saisie";
 
         String res = "";
