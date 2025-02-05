@@ -103,6 +103,7 @@ execute {
         }
 
         // Retour au dépôt
+        distV += Distance[currentNode][idDepot];
         clientVisiter = "Dépôt -> " + clientVisiter; 
 
         if (vehiculeSorti) {  // Si le véhicule a réellement effectué un trajet
