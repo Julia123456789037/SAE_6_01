@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ToSUMO
 {
-    public static final String EXTENSION_MAP          = ".net.xml";
-    public static final String EXTENSION_ROUTE        = ".rou.xml";
-    public static final String EXTENSION_VIEW         = ".xml";
-    public static final String EXTENSION_SIMULATION   = ".sumocfg";
+    public static final String EXTENSION_MAP        = ".net.xml";
+    public static final String EXTENSION_ROUTE      = ".rou.xml";
+    public static final String EXTENSION_VIEW       = ".xml";
+    public static final String EXTENSION_SIMULATION = ".sumocfg";
 
     private OutilSumo utilSumo;
     private int coeff;
