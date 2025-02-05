@@ -3,16 +3,12 @@ package ihm;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-
-import metier.ToSUMO;
 
 
 public class PanelFichier extends PanelExemple implements ActionListener

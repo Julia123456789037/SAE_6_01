@@ -5,18 +5,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -228,12 +219,13 @@ public class FrameMain extends JFrame implements ActionListener
 
 			if (nomFichier != null && !nomFichier.trim().isEmpty()) 
 			{
-				String nom = selectedFolder.getAbsolutePath() + "/" + nomFichier;
+				String nom    = selectedFolder.getAbsolutePath() + "/" + nomFichier;
+				String nomVue = selectedFolder.getAbsolutePath() + "/" + "sumex_view_setting";
+				
 				this.os.genererFichier(this.ts.getRouXML()              , ToSUMO.EXTENSION_ROUTE     , nom);
 				this.os.genererFichier(this.ts.getNetXML()              , ToSUMO.EXTENSION_MAP       , nom);
+				this.os.genererFichier(this.ts.getViewSetting()         , ToSUMO.EXTENSION_VIEW      , nomVue);
 				this.os.genererFichier(this.ts.getSimulation(nomFichier), ToSUMO.EXTENSION_SIMULATION, nom);
-				
-				// Generer le fichier SUMO/sumex_view_setting.xml
 			}
 		}
 	}
