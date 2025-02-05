@@ -33,6 +33,7 @@ public class OutilSumo
 
     float resultatOpti;
 	HashMap<Integer, List<Point>> tournees;	
+    Color[]                       coulVehic;
 
 
     BufferedImage bi;
@@ -294,12 +295,18 @@ public class OutilSumo
         int offsetY = (int) (-minY * scaleFactor) + 20;
     
         // Dessine les chemins
+        this.coulVehic = new Color[this.tournees.size()];
+        int ind = 0;
+        
         for (Integer num : this.tournees.keySet())
         {
             int r = 50 + (int) (Math.random() * 156);
             int g = 50 + (int) (Math.random() * 156);
             int b = 50 + (int) (Math.random() * 156);
-            g2.setColor(new Color(r, g, b));
+
+            Color coul = new Color(r, g, b);
+            g2.setColor(coul);
+            this.coulVehic[ind++] = coul;
     
             List<Point> list = this.tournees.get(num);
             for (int i = 0; i < list.size() - 1; i++)
