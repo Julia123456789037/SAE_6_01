@@ -29,7 +29,7 @@ import metier.ToSUMO;
 
 public class FrameMain extends JFrame implements ActionListener
 {
-	public static Color COULEUR  = Color.decode("#1D69AA");
+	public static Color COULEUR  = Color.decode("#2B6777");
 
 	private OutilSumo os;
 	private ToSUMO    ts;

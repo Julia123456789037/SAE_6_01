@@ -35,6 +35,7 @@ public class PanelImport extends PanelExemple implements ActionListener
 		this.btnExporter = FrameMain.styliserBouton("Exporter");
 
 		this.txtDat = FrameMain.styliserTextArea("Importer un fichier correspondant a la structure demander.");
+		this.txtDat.setEditable(false);
 
 		this.add(FrameMain.panelTitre("Importer le fichier Mistic", FrameMain.COULEUR), BorderLayout.NORTH);
 
@@ -60,6 +61,8 @@ public class PanelImport extends PanelExemple implements ActionListener
 	public void dessinerInterface() 
 	{
 		this.txtDat.setText(this.frame.getTextDat());
+		this.btnCopier.setEnabled(this.peutSuivant());
+		this.btnExporter.setEnabled(this.peutSuivant());
 	}
 
 
@@ -95,7 +98,6 @@ public class PanelImport extends PanelExemple implements ActionListener
 		{
 			this.frame.telechargerContenue(this.frame.getTextDat(), ".dat");
 		}
-
-		
+	
 	}
 }
