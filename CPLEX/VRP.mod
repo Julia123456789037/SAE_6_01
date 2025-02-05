@@ -10,6 +10,7 @@ int nbVehicules = ...; // Nombre de véhicules
 range Noeuds = 1..nbClientDep; // Inclut le dépôt
 range Vehicules = 1..nbVehicules;
 
+
 // Données du problème
 float Distance[Noeuds][Noeuds] = ...; // Matrice des distances
 int Demande[Noeuds] = ...;            // Demande des clients
@@ -18,7 +19,7 @@ int idDepot = 1;                      // l'indice du dépôt
 
 // Variables de décision
 dvar boolean x[Noeuds][Noeuds][Vehicules]; // 1 si le véhicule v passe de i à j, 0 sinon
-int float+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
+dvar int+ u[Noeuds][Vehicules];          // Variable MTZ pour éviter les sous-tours
 
 // Fonction objectif : Minimiser la distance totale
 minimize sum(v in Vehicules, i in Noeuds, j in Noeuds : i != j) Distance[i][j] * x[i][j][v];
@@ -56,11 +57,8 @@ subject to {
     u[i][v] <= Qmax;
   }
   
-  
 }
 
-
-// Section d'exécution pour afficher les résultats
 execute {
     var totalDistance = 0;
     var nbVehiculeSorti = 0;
@@ -69,55 +67,59 @@ execute {
 
     // Parcours des véhicules pour afficher leurs tournées
     for (var v in Vehicules) {
-        var distV = 0; // Distance parcourue par le véhicule
-        var cumulSoustraction = Qmax;
-        
-        // Chaines de caractères à l'affichage
-        var clientVisiter = "";
-        var qteDepose     = Qmax + " -> ";
-        
+        var distV = 0;
+        var qteDepose = Qmax + " -> ";
         var vehiculeSorti = false;
-        var capaciteUtilisee = 0;  // Variable pour suivre la capacité utilisée par le véhicule
+        var capaciteUtilisee = 0;
+        var cumulSoustraction = Qmax;
+        var currentNode = idDepot; // Départ du dépôt
+        var clientVisiter = "Dépôt"; // Chaîne pour stocker l'ordre de passage
 
-        for (var i in Noeuds) {
+        while (true) {
+            var nextNode = -1; // Prochain client
+            var trouve = false;
+            
+            // Recherche du prochain client
             for (var j in Noeuds) {
-                if (i != j && x[i][j][v].solutionValue > 0.99) { // Vérification améliorée
-                    vehiculeSorti = true;
-                    clientVisiter = j + " -> " + clientVisiter; // Ajout du client visité
-                    
-                    cumulSoustraction -= Demande[j] * x[i][j][v]; // Calcul de la quantité de marchandises restantes
-                    qteDepose += cumulSoustraction + " -> ";
-                    
-                    // Ajouter la distance uniquement pour les arcs actifs
-                    distV += Distance[i][j];
-
-                    // Calcul de la capacité utilisée pour chaque client visité
-                    if (i != idDepot) {
-                        capaciteUtilisee += Demande[i];  // Ajoute la demande du client i
-                    }
+                if (j != currentNode && j != idDepot && x[currentNode][j][v].solutionValue > 0.99) {
+                    nextNode = j;
+                    trouve = true;
+                    break;
                 }
+            }
+            
+            // Si un client suivant a été trouvé
+            if (nextNode != -1) {
+                vehiculeSorti = true;
+                clientVisiter = (nextNode - 1) + " -> " + clientVisiter;  // Ajoute le client à la tournée
+                cumulSoustraction -= Demande[nextNode] * x[currentNode][nextNode][v].solutionValue; 
+                qteDepose += cumulSoustraction + " -> ";
+                distV += Distance[currentNode][nextNode];
+                capaciteUtilisee += Demande[nextNode];
+                currentNode = nextNode;
+            } else {
+                break; // Fin de la tournée
             }
         }
 
-		clientVisiter = "Dépôt -> " + clientVisiter;
-		
-        // Afficher la tournée et les statistiques du véhicule
-        if (vehiculeSorti) {
+        // Retour au dépôt
+        distV += Distance[currentNode][idDepot];
+        clientVisiter = "Dépôt -> " + clientVisiter; 
+
+        if (vehiculeSorti) {  // Si le véhicule a réellement effectué un trajet
             nbVehiculeSorti += 1;
             writeln("==============================");
             writeln(" Véhicule ", v, ":");
             writeln(" ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ");
-            writeln("  Tournée      : ", clientVisiter, "Dépôt");
-            
+            writeln("  Tournée      : ", clientVisiter);
             var capaciteRestante = Qmax - capaciteUtilisee;
             writeln("  Qté déposées : ", qteDepose, capaciteRestante);
             writeln("  Distance parcourue : ", distV);
-            
-            // Affichage de la capacité restante et de la capacité utilisée
             writeln("  Capacité utilisée : ", capaciteUtilisee);
             totalDistance += distV;
         }
     }
+
     writeln("");
     writeln("==============================");
     writeln("==============================");

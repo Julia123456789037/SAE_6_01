@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" from="826211723#0" to="315066663#2" via="175500462#0"/>
+    <trip id="t_1" depart="0.00" color="green" from="826211723#0" to="-841961704#1" via="220395862"/>
+    <trip id="t_2" depart="0.00" color="cyan" from="826211723#0" to="305750115#0"/>
+    <trip id="t_3" depart="0.00" color="magenta" from="826211723#0" to="-30750107#0"/>
+    <trip id="t_4" depart="0.00" color="red" from="826211723#0" to="826211723#0" via="79127136#0"/>
+</routes>
