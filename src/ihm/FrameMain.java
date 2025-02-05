@@ -222,13 +222,10 @@ public class FrameMain extends JFrame implements ActionListener
 
 			if (nomFichier != null && !nomFichier.trim().isEmpty()) 
 			{
-
 				String nom = selectedFolder.getAbsolutePath() + "/" + nomFichier;
-				this.os.genererFichier(this.ts.getRouXML(), ".rou.xml", nom);
-				this.os.genererFichier(this.ts.getNetXML(), ".net.xml", nom);
-				
-				// TODO : Simulation
-				// this.os.genererFichier(this.ts.getRouXML(), ".rou.xml", nom);
+				this.os.genererFichier(this.ts.getRouXML()              , ToSUMO.EXTENSION_ROUTE     , nom);
+				this.os.genererFichier(this.ts.getNetXML()              , ToSUMO.EXTENSION_MAP       , nom);
+				this.os.genererFichier(this.ts.getSimulation(nomFichier), ToSUMO.EXTENSION_SIMULATION, nom);
 			}
 		}
 	}
