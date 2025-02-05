@@ -74,7 +74,7 @@ public class ToSUMO
                     retStr += "\t<edge id=\"E-J" + i + "J" + j + "\" from=\"J" + i + "\" to=\"J" + j + "\" priority=\"1\">\r\n" +
                               "\t\t<lane id=\"E" + edgeIndex + "_0\" index=\"0\" speed=\"13.89\" width=\"0.8\" length=\"" + distance + 
                               "\" shape=\"" + shape + "\"/>\r\n" +  // Ajout du shape ici
-                              "\t</edge>\r\n\r\n";
+                              "\t</edge>\r\n";
                 }
             }
         }
@@ -97,21 +97,24 @@ public class ToSUMO
 			retStr += "\t<junction id=\"J" + i + "\" type=\"unregulated\" x=\"" + (p.x() * 10) + "\" y=\"" + (p.y() * 10) + "\"\r\n" +
 					  "\t\tincLanes=\"" + incLanes.toString().trim() + "\"\r\n" +
 					  "\t\tintLanes=\"\"\r\n" +
-					  "\t\tshape=\"142.73,46.58\"/>\r\n";
+					  "\t\tshape=\"142.73,46.58\"/>\r\n\r\n";
 		}
+
+        retStr += "\r\n";
 
         for (int i = 0; i < this.utilSumo.matrix.length; i++) {
             for (int j = 0; j < this.utilSumo.matrix[i].length; j++) {
-                if (i != j && this.utilSumo.matrix[i][j] > 0) {
+                if (i != j && this.utilSumo.matrix[i][j] > 0) { // Vérifie si la distance i → j existe
                     for (int k = 0; k < this.utilSumo.matrix[j].length; k++) {
-                        if (j != k && this.utilSumo.matrix[j][k] > 0) {
-                            retStr += "\t<connection from=\"E-J" + j + "J" + i + "\" to=\"E-J" + k + "J" + j + 
-                              "\" fromLane=\"0\" toLane=\"0\" via=\"J" + j + "\"/>\r\n";
+                        if (j != k && this.utilSumo.matrix[j][k] > 0) { // Vérifie si la distance j → k existe
+                            retStr += "\t<connection from=\"E-J" + i + "J" + j + "\" to=\"E-J" + j + "J" + k + 
+                                    "\" fromLane=\"0\" toLane=\"0\" dir=\"s\" state=\"O\"/>\r\n";
                         }
                     }
                 }
             }
         }
+
 
         retStr += "\r\n</net>"; 
         return retStr;
@@ -137,7 +140,7 @@ public class ToSUMO
             "\t<route id=\"r_"+ i +"\" edges=\"";
             
             int j;
-            for (j = 1; j < points.size() -2; j++)
+            for (j = 1; j < points.size() -1; j++)
             {
                 retStr += "E-J" + points.get(j -1).num() + "J" + points.get(j).num() + " ";
             }
