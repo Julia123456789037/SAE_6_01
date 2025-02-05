@@ -134,7 +134,7 @@ public class ToSUMO
             ArrayList<Point> points = new ArrayList<Point>(values);
 
             retStr +=  
-            "\t<route id=\"r_"+ (i + 1) +"\" edges=\"";
+            "\t<route id=\"r_"+ i +"\" edges=\"";
             
             int j;
             for (j = 1; j < points.size() -2; j++)
@@ -148,10 +148,13 @@ public class ToSUMO
 
         retStr +="\r\n\t<!-- Vehicles, persons and containers (sorted by depart) -->\r\n";
 
+        i = 0;
         for (Integer numVehicule : this.utilSumo.tournees.keySet())
         {
             retStr +=  
-            "\t<vehicle id=\"v_" + numVehicule + "\" depart=\"0.00\" route=\"r_" + numVehicule + "\"/>\r\n";
+            "\t<vehicle id=\"v_" + numVehicule + "\" depart=\"0.00\" route=\"r_" + i + "\"/>\r\n";
+
+            i++;
         }
 
         retStr += "\r\n</routes>"; 
