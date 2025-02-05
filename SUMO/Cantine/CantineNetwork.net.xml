@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.9" junctionCornerDetail="3" limitTurnSpeed="5.50"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+  
+  <!-- Zone du réseau -->
+  <location netOffset="0.00,0.00" convBoundary="0,0,1000,1000" origBoundary="0,0,1000,1000"
+            projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+  
+  <!-- Définition des intersections (junctions) -->
+  <junction id="1" x="500.00"  y="500.00"  type="priority"/> <!-- Centre du cercle -->
+  <junction id="2" x="500.00"  y="800.00"  type="priority"/>
+  <junction id="3" x="669.13"  y="769.13"  type="priority"/>
+  <junction id="4" x="800.00"  y="630.00"  type="priority"/>
+  <junction id="5" x="830.87"  y="500.00"  type="priority"/>
+  <junction id="6" x="800.00"  y="370.00"  type="priority"/>
+  <junction id="7" x="669.13"  y="230.87"  type="priority"/>
+  <junction id="8" x="500.00"  y="200.00"  type="priority"/>
+  <junction id="9" x="330.87"  y="230.87"  type="priority"/>
+  <junction id="10" x="200.00" y="370.00"  type="priority"/>
+  <junction id="11" x="169.13" y="500.00"  type="priority"/>
+
+  <!-- Définition des routes (edges) basées sur la matrice des distances -->
+  <edges>
+    <!-- Connexions entre tous les nœuds selon la matrice des distances -->
+    <edge id="1to2" from="1" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to2_0" index="0" speed="13.89" length="270" shape="500.00,500.00 500.00,800.00"/>
+    </edge>
+     <edge id="1to3" from="1" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to3_0" index="0" speed="13.89" length="460" shape="500.00,500.00 669.13,769.13"/>
+    </edge>
+    <edge id="1to4" from="1" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to4_0" index="0" speed="13.89" length="280" shape="500.00,500.00 800.00,630.00"/>
+    </edge>
+    <edge id="1to5" from="1" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to5_0" index="0" speed="13.89" length="460" shape="500.00,500.00 830.87,500.00"/>
+    </edge>
+    <edge id="1to6" from="1" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to6_0" index="0" speed="13.89" length="280" shape="500.00,500.00 800.00,370.00"/>
+    </edge>
+    <edge id="1to7" from="1" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to7_0" index="0" speed="13.89" length="460" shape="500.00,500.00 669.13,230.87"/>
+    </edge>
+    <edge id="1to8" from="1" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to8_0" index="0" speed="13.89" length="280" shape="500.00,500.00 500.00,200.00"/>
+    </edge>
+    <edge id="1to9" from="1" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to9_0" index="0" speed="13.89" length="460" shape="500.00,500.00 330.87,230.87"/>
+    </edge>
+    <edge id="1to10" from="1" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to10_0" index="0" speed="13.89" length="280" shape="500.00,500.00 200.00,370.00"/>
+    </edge>
+    <edge id="1to11" from="1" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="1to11_0" index="0" speed="13.89" length="460" shape="500.00,500.00 169.13,500.00"/>
+    </edge>
+
+    <edge id="2to1" from="2" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to1_0" index="0" speed="13.89" length="270" shape="500.00,800.00 500.00,500.00"/>
+    </edge>
+    <edge id="2to3" from="2" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to3_0" index="0" speed="13.89" length="270" shape="500.00,800.00 669.13,769.13"/>
+    </edge>
+    <edge id="2to4" from="2" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to4_0" index="0" speed="13.89" length="270" shape="500.00,800.00 800.00,630.00"/>
+    </edge>
+    <edge id="2to5" from="2" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to5_0" index="0" speed="13.89" length="270" shape="500.00,800.00 830.87,500.00"/>
+    </edge>
+    <edge id="2to6" from="2" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to6_0" index="0" speed="13.89" length="270" shape="500.00,800.00 800.00,370.00"/>
+    </edge>
+    <edge id="2to7" from="2" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to7_0" index="0" speed="13.89" length="270" shape="500.00,800.00 669.13,230.87"/>
+    </edge>
+    <edge id="2to8" from="2" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to8_0" index="0" speed="13.89" length="270" shape="500.00,800.00 500.00,200.00"/>
+    </edge>
+    <edge id="2to9" from="2" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to9_0" index="0" speed="13.89" length="270" shape="500.00,800.00 330.87,230.87"/>
+    </edge>
+    <edge id="2to10" from="2" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to10_0" index="0" speed="13.89" length="270" shape="500.00,800.00 200.00,370.00"/>
+    </edge>
+    <edge id="2to11" from="2" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="2to11_0" index="0" speed="13.89" length="270" shape="500.00,800.00 169.13,500.00"/>
+    </edge>
+    
+    <edge id="3to1" from="3" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to1_0" index="0" speed="13.89" length="460" shape="669.13,769.13 500.00,500.00"/>
+    </edge>
+    <edge id="3to2" from="3" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to2_0" index="0" speed="13.89" length="460" shape="669.13,769.13 800.00,500.00"/>
+    </edge>
+    <edge id="3to4" from="3" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to4_0" index="0" speed="13.89" length="460" shape="669.13,769.13 800.00,630.00"/>
+    </edge>
+    <edge id="3to5" from="3" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to5_0" index="0" speed="13.89" length="460" shape="669.13,769.13 830.87,500.00"/>
+    </edge>
+    <edge id="3to6" from="3" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to6_0" index="0" speed="13.89" length="460" shape="669.13,769.13 800.00,370.00"/>
+    </edge>
+    <edge id="3to7" from="3" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to7_0" index="0" speed="13.89" length="460" shape="669.13,769.13 669.13,230.87"/>
+    </edge>
+    <edge id="3to8" from="3" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to8_0" index="0" speed="13.89" length="460" shape="669.13,769.13 500.00,200.00"/>
+    </edge>
+    <edge id="3to9" from="3" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to9_0" index="0" speed="13.89" length="460" shape="669.13,769.13 330.87,230.87"/>
+    </edge>
+    <edge id="3to10" from="3" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to10_0" index="0" speed="13.89" length="460" shape="669.13,769.13 200.00,370.00"/>
+    </edge>
+    <edge id="3to11" from="3" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="3to11_0" index="0" speed="13.89" length="460" shape="669.13,769.13 169.13,500.00"/>
+    </edge>
+
+    <edge id="4to1" from="4" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to1_0" index="0" speed="13.89" length="280" shape="800.00,630.00 500.00,500.00"/>
+    </edge>
+    <edge id="4to2" from="4" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to2_0" index="0" speed="13.89" length="190" shape="800.00,630.00 500.00,800.00"/>
+    </edge>
+    <edge id="4to3" from="4" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to3_0" index="0" speed="13.89" length="210" shape="800.00,630.00 669.13,769.13"/>
+    </edge>
+    <edge id="4to5" from="4" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to5_0" index="0" speed="13.89" length="130" shape="800.00,630.00 830.87,500.00"/>
+    </edge>
+    <edge id="4to6" from="4" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to6_0" index="0" speed="13.89" length="260" shape="800.00,630.00 800.00,370.00"/>
+    </edge>
+    <edge id="4to7" from="4" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to7_0" index="0" speed="13.89" length="390" shape="800.00,630.00 669.13,230.87"/>
+    </edge>
+    <edge id="4to8" from="4" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to8_0" index="0" speed="13.89" length="430" shape="800.00,630.00 500.00,200.00"/>
+    </edge>
+    <edge id="4to9" from="4" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to9_0" index="0" speed="13.89" length="520" shape="800.00,630.00 330.87,230.87"/>
+    </edge>
+    <edge id="4to10" from="4" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to10_0" index="0" speed="13.89" length="580" shape="800.00,630.00 200.00,370.00"/>
+    </edge>
+    <edge id="4to11" from="4" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="4to11_0" index="0" speed="13.89" length="610" shape="800.00,630.00 169.13,500.00"/>
+    </edge>
+
+    <edge id="5to1" from="5" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to1_0" index="0" speed="13.89" length="280" shape="830.87,500.00 500.00,500.00"/>
+    </edge>
+    <edge id="5to2" from="5" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to2_0" index="0" speed="13.89" length="190" shape="830.87,500.00 500.00,800.00"/>
+    </edge>
+    <edge id="5to3" from="5" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to3_0" index="0" speed="13.89" length="210" shape="830.87,500.00 669.13,769.13"/>
+    </edge>
+    <edge id="5to4" from="5" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to4_0" index="0" speed="13.89" length="130" shape="830.87,500.00 800.00,630.00"/>
+    </edge>
+    <edge id="5to6" from="5" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to6_0" index="0" speed="13.89" length="260" shape="830.87,500.00 800.00,370.00"/>
+    </edge>
+    <edge id="5to7" from="5" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to7_0" index="0" speed="13.89" length="390" shape="830.87,500.00 669.13,230.87"/>
+    </edge>
+    <edge id="5to8" from="5" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to8_0" index="0" speed="13.89" length="430" shape="830.87,500.00 500.00,200.00"/>
+    </edge>
+    <edge id="5to9" from="5" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to9_0" index="0" speed="13.89" length="520" shape="830.87,500.00 330.87,230.87"/>
+    </edge>
+    <edge id="5to10" from="5" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to10_0" index="0" speed="13.89" length="580" shape="830.87,500.00 200.00,370.00"/>
+    </edge>
+    <edge id="5to11" from="5" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="5to11_0" index="0" speed="13.89" length="610" shape="830.87,500.00 169.13,500.00"/>
+    </edge>
+
+    <edge id="6to1" from="6" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to1_0" index="0" speed="13.89" length="280" shape="800.00,370.00 500.00,500.00"/>
+    </edge>
+    <edge id="6to2" from="6" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to2_0" index="0" speed="13.89" length="190" shape="800.00,370.00 500.00,800.00"/>
+    </edge>
+    <edge id="6to3" from="6" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to3_0" index="0" speed="13.89" length="210" shape="800.00,370.00 669.13,769.13"/>
+    </edge>
+    <edge id="6to4" from="6" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to4_0" index="0" speed="13.89" length="130" shape="800.00,370.00 800.00,630.00"/>
+    </edge>
+    <edge id="6to5" from="6" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to5_0" index="0" speed="13.89" length="260" shape="800.00,370.00 830.87,500.00"/>
+    </edge>
+    <edge id="6to7" from="6" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to7_0" index="0" speed="13.89" length="390" shape="800.00,370.00 669.13,230.87"/>
+    </edge>
+    <edge id="6to8" from="6" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to8_0" index="0" speed="13.89" length="430" shape="800.00,370.00 500.00,200.00"/>
+    </edge>
+    <edge id="6to9" from="6" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to9_0" index="0" speed="13.89" length="520" shape="800.00,370.00 330.87,230.87"/>
+    </edge>
+    <edge id="6to10" from="6" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to10_0" index="0" speed="13.89" length="580" shape="800.00,370.00 200.00,370.00"/>
+    </edge>
+    <edge id="6to11" from="6" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="6to11_0" index="0" speed="13.89" length="610" shape="800.00,370.00 169.13,500.00"/>
+    </edge>
+
+    <edge id="7to1" from="7" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to1_0" index="0" speed="13.89" length="280" shape="669.13,230.87 500.00,500.00"/>
+    </edge>
+    <edge id="7to2" from="7" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to2_0" index="0" speed="13.89" length="190" shape="669.13,230.87 500.00,800.00"/>
+    </edge>
+    <edge id="7to3" from="7" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to3_0" index="0" speed="13.89" length="210" shape="669.13,230.87 669.13,769.13"/>
+    </edge>
+    <edge id="7to4" from="7" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to4_0" index="0" speed="13.89" length="130" shape="669.13,230.87 800.00,630.00"/>
+    </edge>
+    <edge id="7to5" from="7" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to5_0" index="0" speed="13.89" length="260" shape="669.13,230.87 830.87,500.00"/>
+    </edge>
+    <edge id="7to6" from="7" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to6_0" index="0" speed="13.89" length="390" shape="669.13,230.87 800.00,370.00"/>
+    </edge>
+    <edge id="7to8" from="7" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to8_0" index="0" speed="13.89" length="430" shape="669.13,230.87 500.00,200.00"/>
+    </edge>
+    <edge id="7to9" from="7" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to9_0" index="0" speed="13.89" length="520" shape="669.13,230.87 330.87,230.87"/>
+    </edge>
+    <edge id="7to10" from="7" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to10_0" index="0" speed="13.89" length="580" shape="669.13,230.87 200.00,370.00"/>
+    </edge>
+    <edge id="7to11" from="7" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="7to11_0" index="0" speed="13.89" length="610" shape="669.13,230.87 169.13,500.00"/>
+    </edge>
+
+
+    <edge id="8to1" from="8" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to1_0" index="0" speed="13.89" length="300" shape="500.00,200.00 500.00,500.00"/>
+    </edge>
+    <edge id="8to2" from="8" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to2_0" index="0" speed="13.89" length="300" shape="500.00,200.00 500.00,800.00"/>
+    </edge>
+    <edge id="8to3" from="8" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to3_0" index="0" speed="13.89" length="300" shape="500.00,200.00 669.13,769.13"/>
+    </edge>
+    <edge id="8to4" from="8" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to4_0" index="0" speed="13.89" length="300" shape="500.00,200.00 800.00,630.00"/>
+    </edge>
+    <edge id="8to5" from="8" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to5_0" index="0" speed="13.89" length="300" shape="500.00,200.00 830.87,500.00"/>
+    </edge>
+    <edge id="8to6" from="8" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to6_0" index="0" speed="13.89" length="300" shape="500.00,200.00 800.00,370.00"/>
+    </edge>
+    <edge id="8to7" from="8" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to7_0" index="0" speed="13.89" length="300" shape="500.00,200.00 669.13,230.87"/>
+    </edge>
+    <edge id="8to9" from="8" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to9_0" index="0" speed="13.89" length="300" shape="500.00,200.00 330.87,230.87"/>
+    </edge>
+    <edge id="8to10" from="8" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to10_0" index="0" speed="13.89" length="300" shape="500.00,200.00 200.00,370.00"/>
+    </edge>
+    <edge id="8to11" from="8" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="8to11_0" index="0" speed="13.89" length="300" shape="500.00,200.00 169.13,500.00"/>
+    </edge>
+
+    <edge id="9to1" from="9" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to1_0" index="0" speed="13.89" length="300" shape="330.87,230.87 500.00,500.00"/>
+    </edge>
+    <edge id="9to2" from="9" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to2_0" index="0" speed="13.89" length="300" shape="330.87,230.87 500.00,800.00"/>
+    </edge>
+    <edge id="9to3" from="9" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to3_0" index="0" speed="13.89" length="300" shape="330.87,230.87 669.13,769.13"/>
+    </edge>
+    <edge id="9to4" from="9" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to4_0" index="0" speed="13.89" length="300" shape="330.87,230.87 800.00,630.00"/>
+    </edge>
+    <edge id="9to5" from="9" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to5_0" index="0" speed="13.89" length="300" shape="330.87,230.87 830.87,500.00"/>
+    </edge>
+    <edge id="9to6" from="9" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to6_0" index="0" speed="13.89" length="300" shape="330.87,230.87 800.00,370.00"/>
+    </edge>
+    <edge id="9to7" from="9" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to7_0" index="0" speed="13.89" length="300" shape="330.87,230.87 669.13,230.87"/>
+    </edge>
+    <edge id="9to8" from="9" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to8_0" index="0" speed="13.89" length="300" shape="330.87,230.87 500.00,200.00"/>
+    </edge>
+    <edge id="9to10" from="9" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to10_0" index="0" speed="13.89" length="300" shape="330.87,230.87 200.00,370.00"/>
+    </edge>
+    <edge id="9to11" from="9" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="9to11_0" index="0" speed="13.89" length="300" shape="330.87,230.87 169.13,500.00"/>
+    </edge>
+
+    <edge id="10to1" from="10" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to1_0" index="0" speed="13.89" length="300" shape="200.00,370.00 500.00,500.00"/>
+    </edge>
+    <edge id="10to2" from="10" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to2_0" index="0" speed="13.89" length="300" shape="200.00,370.00 500.00,800.00"/>
+    </edge>
+    <edge id="10to3" from="10" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to3_0" index="0" speed="13.89" length="300" shape="200.00,370.00 669.13,769.13"/>
+    </edge>
+    <edge id="10to4" from="10" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to4_0" index="0" speed="13.89" length="300" shape="200.00,370.00 800.00,630.00"/>
+    </edge>
+    <edge id="10to5" from="10" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to5_0" index="0" speed="13.89" length="300" shape="200.00,370.00 830.87,500.00"/>
+    </edge>
+    <edge id="10to6" from="10" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to6_0" index="0" speed="13.89" length="300" shape="200.00,370.00 800.00,370.00"/>
+    </edge>
+    <edge id="10to7" from="10" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to7_0" index="0" speed="13.89" length="300" shape="200.00,370.00 669.13,230.87"/>
+    </edge>
+    <edge id="10to8" from="10" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to8_0" index="0" speed="13.89" length="300" shape="200.00,370.00 500.00,200.00"/>
+    </edge>
+    <edge id="10to9" from="10" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to9_0" index="0" speed="13.89" length="300" shape="200.00,370.00 330.87,230.87"/>
+    </edge>
+    <edge id="10to11" from="10" to="11" priority="1" numLanes="1" speed="13.89">
+      <lane id="10to11_0" index="0" speed="13.89" length="300" shape="200.00,370.00 169.13,500.00"/>
+    </edge>
+
+    <edge id="11to1" from="11" to="1" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to1_0" index="0" speed="13.89" length="300" shape="169.13,500.00 500.00,500.00"/>
+    </edge>
+    <edge id="11to2" from="11" to="2" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to2_0" index="0" speed="13.89" length="300" shape="169.13,500.00 500.00,800.00"/>
+    </edge>
+    <edge id="11to3" from="11" to="3" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to3_0" index="0" speed="13.89" length="300" shape="169.13,500.00 669.13,769.13"/>
+    </edge>
+    <edge id="11to4" from="11" to="4" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to4_0" index="0" speed="13.89" length="300" shape="169.13,500.00 800.00,630.00"/>
+    </edge>
+    <edge id="11to5" from="11" to="5" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to5_0" index="0" speed="13.89" length="300" shape="169.13,500.00 830.87,500.00"/>
+    </edge>
+    <edge id="11to6" from="11" to="6" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to6_0" index="0" speed="13.89" length="300" shape="169.13,500.00 800.00,370.00"/>
+    </edge>
+    <edge id="11to7" from="11" to="7" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to7_0" index="0" speed="13.89" length="300" shape="169.13,500.00 669.13,230.87"/>
+    </edge>
+    <edge id="11to8" from="11" to="8" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to8_0" index="0" speed="13.89" length="300" shape="169.13,500.00 500.00,200.00"/>
+    </edge>
+    <edge id="11to9" from="11" to="9" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to9_0" index="0" speed="13.89" length="300" shape="169.13,500.00 330.87,230.87"/>
+    </edge>
+    <edge id="11to10" from="11" to="10" priority="1" numLanes="1" speed="13.89">
+      <lane id="11to10_0" index="0" speed="13.89" length="300" shape="169.13,500.00 200.00,370.00"/>
+    </edge>
+  </edges>
+</net>
