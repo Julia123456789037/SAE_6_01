@@ -1,0 +1,29 @@
+// solution (optimal) with objective 31.3
+Résultats de l'optimisation:
+==============================
+ Véhicule 1:
+ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ 
+  Tournée      : Dépôt -> 5 -> 9 -> 8 -> 2 -> Dépôt
+  Qté déposées : 100 -> 82 -> 72 -> 45 -> 1 -> 1
+  Distance parcourue : 11.1
+  Capacité utilisée : 99
+==============================
+ Véhicule 2:
+ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ 
+  Tournée      : Dépôt -> 7 -> 4 -> 6 -> Dépôt
+  Qté déposées : 100 -> 68 -> 53 -> 33 -> 33
+  Distance parcourue : 8.9
+  Capacité utilisée : 67
+==============================
+ Véhicule 4:
+ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ 
+  Tournée      : Dépôt -> 3 -> 1 -> 10 -> Dépôt
+  Qté déposées : 100 -> 89 -> 29 -> 3 -> 3
+  Distance parcourue : 11.3
+  Capacité utilisée : 97
+
+==============================
+==============================
+Statistiques globales :
+  Nombre total de véhicules utilisés : 3 / 4
+  Distance totale parcourue : 31.3
