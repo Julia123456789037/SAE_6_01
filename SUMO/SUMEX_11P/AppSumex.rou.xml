@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+    <route id="r_0" edges="E-J0J5 E-J5J9 E-J9J8 E-J8J2 E-J2J0"/>
+	<route id="r_1" edges="E-J0J7 E-J7J4 E-J4J6 E-J6J0"/>
+	<route id="r_2" edges="E-J0J3 E-J3J1 E-J1J10 E-J10J0"/>
+
+    <vType id="car" accel="0.8" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
+        <vehicle id="v_1" depart="0.00" color="88,109,195" route="r_0"/>
+        <vehicle id="v_2" depart="0.00" color="57,51,168" route="r_1"/>
+        <vehicle id="v_4" depart="0.00" color="172,98,64" route="r_2"/>
+</routes>

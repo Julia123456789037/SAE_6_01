@@ -11,12 +11,10 @@ public class ToSUMO
     public static final String EXTENSION_SIMULATION = ".sumocfg";
 
     private OutilSumo utilSumo;
-    private int coeff;
 
     public ToSUMO(OutilSumo utilSumo)
     {
         this.utilSumo = utilSumo;
-        this.coeff = 5;
     }
 
     public String getNetXML()
@@ -64,11 +62,11 @@ public class ToSUMO
         
                     int edgeIndex = i * this.utilSumo.matrix.length + j;
 
-                    double distance = this.utilSumo.points[i].getDistance(this.utilSumo.points[j]) * this.coeff;
-                    double xFrom = this.utilSumo.points[i].x() * this.coeff;
-                    double yFrom = this.utilSumo.points[i].y() * this.coeff;
-                    double xTo   = this.utilSumo.points[j].x() * this.coeff;
-                    double yTo   = this.utilSumo.points[j].y() * this.coeff;
+                    double distance = this.utilSumo.points[i].getDistance(this.utilSumo.points[j]) * this.utilSumo.points.length;
+                    double xFrom = this.utilSumo.points[i].x() * this.utilSumo.points.length;
+                    double yFrom = this.utilSumo.points[i].y() * this.utilSumo.points.length;
+                    double xTo   = this.utilSumo.points[j].x() * this.utilSumo.points.length;
+                    double yTo   = this.utilSumo.points[j].y() * this.utilSumo.points.length;
                     
                     String shape = xFrom + "," + yFrom + " " + xTo + "," + yTo; // Génération du shape
                     
@@ -95,7 +93,7 @@ public class ToSUMO
 			}
 		
 			// Création de la jonction avec incLanes renseigné
-			retStr += "\t<junction id=\"J" + i + "\" type=\"unregulated\" x=\"" + (p.x() * this.coeff) + "\" y=\"" + (p.y() * this.coeff) + "\"\r\n" +
+			retStr += "\t<junction id=\"J" + i + "\" type=\"unregulated\" x=\"" + (p.x() * this.utilSumo.points.length) + "\" y=\"" + (p.y() * this.utilSumo.points.length) + "\"\r\n" +
 					  "\t\tincLanes=\"" + incLanes.toString().trim() + "\"\r\n" +
 					  "\t\tintLanes=\"\"\r\n" +
 					  "\t\tshape=\"142.73,46.58\"/>\r\n\r\n";
@@ -128,7 +126,7 @@ public class ToSUMO
         "<!-- generated on "+ OutilSumo.getDate() +" by SUMEX for SUMO netedit Version 1.15.0\r\n" +
         "-->\r\n\r\n";
         
-        retStr += "<routes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/routes_file.xsd\">\r\n\r\n" +
+        retStr += "<routes>\r\n\r\n" +
                   "\t<!-- Routes -->\r\n";
 
         // Itération sur les tournées
@@ -150,7 +148,8 @@ public class ToSUMO
             i++;
         }
 
-        retStr +="\r\n\t<!-- Vehicles, persons and containers (sorted by depart) -->\r\n";
+        retStr += "\r\n\t<vType id=\"car\" accel=\"0.8\" decel=\"4.5\" sigma=\"0.5\" length=\"5\" maxSpeed=\"70\"/>\r\n" +
+                  "\r\n\t<!-- Vehicles, persons and containers (sorted by depart) -->\r\n";
 
         i = 0;
         for (Integer numVehicule : this.utilSumo.tournees.keySet())
