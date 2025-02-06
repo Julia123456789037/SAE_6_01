@@ -71,7 +71,7 @@ public class ToSUMO
                     String shape = xFrom + "," + yFrom + " " + xTo + "," + yTo; // Génération du shape
                     
                     retStr += "\t<edge id=\"E-J" + i + "J" + j + "\" from=\"J" + i + "\" to=\"J" + j + "\" priority=\"1\">\r\n" +
-                              "\t\t<lane id=\"E" + edgeIndex + "_0\" index=\"0\" speed=\"13.89\" width=\"0.8\" length=\"" + distance + 
+                              "\t\t<lane id=\"E" + edgeIndex + "_0\" index=\"0\" speed=\"13.89\" width=\"0.8\" length=\"" + String.format("%.2f", distance) + 
                               "\" shape=\"" + shape + "\"/>\r\n" +  // Ajout du shape ici
                               "\t</edge>\r\n";
                 }
