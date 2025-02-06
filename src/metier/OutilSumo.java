@@ -333,7 +333,7 @@ public class OutilSumo
             );
 
 
-            String label = String.valueOf(p.num());
+            String label = p.num() +"";
             int textWidth = metrics.stringWidth(label);
             int textHeight = metrics.getHeight();
             
