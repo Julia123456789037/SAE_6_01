@@ -285,6 +285,10 @@ public class OutilSumo
     
         int offsetX = (int) (-minX * scaleFactor) + 20;
         int offsetY = (int) (-minY * scaleFactor) + 20;
+
+        // Fond blanc
+        g2.setColor(Color.WHITE);
+        g2.fillRect(0, 0, width, height);
     
         // Dessine les chemins
         this.coulVehic = new Color[this.tournees.size()];
