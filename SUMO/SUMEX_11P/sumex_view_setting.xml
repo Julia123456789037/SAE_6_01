@@ -1,0 +1,19 @@
+        <viewsettings>
+        <scheme name="real world">
+            <background backgroundColor="51,128,51" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
+            <vehicles vehicleMode="0" vehicleScaleMode="0" vehicleQuality="2" vehicle_minSize="0.00" vehicle_exaggeration="1.00" vehicle_constantSize="0" vehicle_constantSizeSelected="0" showBlinker="1" drawMinGap="0" drawBrakeGap="0" showBTRange="0" showRouteIndex="0" scaleLength="1" drawReversed="0" showParkingInfo="0" showChargingInfo="0"
+                    vehicleName_show="1" vehicleName_size="52.00" vehicleName_color="204,0,3" vehicleName_bgColor="210,207,207" vehicleName_constantSize="1" vehicleName_onlySelected="0"
+                    vehicleValue_show="0" vehicleValue_size="80.00" vehicleValue_color="cyan" vehicleValue_bgColor="128,0,0,0" vehicleValue_constantSize="1" vehicleValue_onlySelected="0"
+                    vehicleScaleValue_show="0" vehicleScaleValue_size="80.00" vehicleScaleValue_color="grey" vehicleScaleValue_bgColor="128,0,0,0" vehicleScaleValue_constantSize="1" vehicleScaleValue_onlySelected="0"
+                    vehicleText_show="0" vehicleText_size="80.00" vehicleText_color="red" vehicleText_bgColor="128,0,0,0" vehicleText_constantSize="1" vehicleText_onlySelected="0">
+            </vehicles>
+            <persons personMode="0" personQuality="2" showPedestrianNetwork="1" pedestrianNetworkColor="179,217,255" person_minSize="1.00" person_exaggeration="1.00" person_constantSize="0" person_constantSizeSelected="0"
+                    personName_show="0" personName_size="60.00" personName_color="0,153,204" personName_bgColor="128,0,0,0" personName_constantSize="1" personName_onlySelected="0"
+                    personValue_show="0" personValue_size="80.00" personValue_color="cyan" personValue_bgColor="128,0,0,0" personValue_constantSize="1" personValue_onlySelected="0">
+            </persons>
+            <containers containerMode="0" containerQuality="2" container_minSize="1.00" container_exaggeration="1.00" container_constantSize="0" container_constantSizeSelected="0"
+                    containerName_show="0" containerName_size="60.00" containerName_color="0,153,204" containerName_bgColor="128,0,0,0" containerName_constantSize="1" containerName_onlySelected="0">
+            </containers>
+        </scheme>
+    </viewsettings>
+
