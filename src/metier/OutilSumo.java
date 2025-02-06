@@ -156,7 +156,7 @@ public class OutilSumo
         int somme=0;
 
         for (Point p : points)
-            if (p.demande() > somme) somme += p.demande();  
+            somme += p.demande();  
 
         return somme;
     }
