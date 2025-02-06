@@ -16,7 +16,7 @@ public class ToSUMO
     public ToSUMO(OutilSumo utilSumo)
     {
         this.utilSumo = utilSumo;
-        this.coeff = 5;
+        this.coeff = this.utilSumo.points.length;
     }
 
     public String getNetXML()
